@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:id="@+id/main_activity_id">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/my_recycler_view"
+        android:layout_weight="9"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="path"
+        android:id="@+id/tv_path"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_vessel"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_new_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Group"
+            android:layout_marginHorizontal="10dp"
+            android:onClick="createFolderAlertDialog"/>
+
+        <Button
+            android:id="@+id/button_new_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Note"
+            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="right"
+            android:onClick="buttonNewNote"
+            />
+    </FrameLayout>
+</LinearLayout>

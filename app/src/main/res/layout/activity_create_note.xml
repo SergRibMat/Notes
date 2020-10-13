@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateNoteActivity"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <EditText
+
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:inputType="textPersonName"
+        android:hint="Title"
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="20dp"
+        />
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:hint="Type here your note"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:layout_marginHorizontal="20dp"
+         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:onClick="buttonBack"/>
+
+        <Button
+            android:id="@+id/button_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
+            android:onClick="buttonReset"/>
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:onClick="buttonSave"/>
+    </LinearLayout>
+</LinearLayout>
