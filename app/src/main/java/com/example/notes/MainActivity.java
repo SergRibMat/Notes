@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
     private MyFilesHandler myFilesHandler;
-    private TextView tv_path;
     private EditText et_folder;
 
 
@@ -46,14 +45,12 @@ public class MainActivity extends AppCompatActivity {
         MainActContext.setContext(this);
         myFilesHandler = new MyFilesHandler(this);
         sectionList = new SectionList(myFilesHandler.listInstance());
-        filesMessage(myFilesHandler);
+        //filesMessage(myFilesHandler);
         setUpRecyclerView();
         requestReadWritePermissions();
         adapterDataUpdater = new AdapterDataUpdater(adapter, sectionList);
         mainController = new MainController(myFilesHandler, sectionList, adapter, adapterDataUpdater);
         adapter.setAdapterDataUpdater(adapterDataUpdater);
-        tv_path = findViewById(R.id.tv_path);
-        tv_path.setText(myFilesHandler.getUpdatedPath());
 
         et_folder = createFolderEditText();
 
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        tv_path.setText(myFilesHandler.getUpdatedPath());
         if (requestCode == 2){
 
             if (resultCode == RESULT_OK){
@@ -103,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Note note = myFilesHandler.createFile(title, text);
                 adapterDataUpdater.insertSingleItem(note);
-                Toast.makeText(this, "Nota creada" , Toast.LENGTH_SHORT).show();
+                showToast(R.string.notecreated);
             }
 
             if(resultCode == RESULT_CANCELED){
@@ -116,22 +112,23 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PERMISSION_REQUEST_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                showToast("Permiso concedido");
+                showToast(R.string.permissiongranted);
             } else {
 
-                showToast("Permiso no concedido");
+                showToast(R.string.permissionnotgranted);
                 finish();
             }
         }
     }
 
-    private void filesMessage(MyFilesHandler a){
+    //UI info to know if there are files or not
+    /*private void filesMessage(MyFilesHandler a){
         if(a.getIsEmptry()){
             showToast("No hay archivos");
         }else{
             showToast("Hay archivos");
         }
-    }
+    }*/
 
     public void createNewFolder(){
 
@@ -143,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 mainController.createFolderMethod(new Folder(name));
             }
         }else{
-            showToast("No has intoducido un titulo");
+            showToast(R.string.settitle);
         }
     }
 
@@ -167,27 +164,32 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
+    private void showToast(int text){
+
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
     private void overrideAlertDialog(final String title, final String text){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActContext.getContext());
         builder.setCancelable(true);
-        builder.setTitle("Ya existe");
-        builder.setMessage("El elemento " + title + " ya existe. ¿Quieres sustituirlo?");
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.alreadycreated));
+        builder.setMessage(getString(R.string.replacesetmessage1) + title + getString(R.string.replacesetmessage2));
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Toast.makeText(MainActContext.getContext(), "accion cancelada", Toast.LENGTH_SHORT).show();
+                showToast(R.string.actioncanceled);
                 dialogInterface.cancel();
             }
         });
 
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 Note nota = myFilesHandler.createFile(title, text);
-                showToast("Nota Creada");
+                showToast(R.string.notecreated);
                 dialogInterface.cancel();
             }
         });
@@ -207,19 +209,17 @@ public class MainActivity extends AppCompatActivity {
         et_folder = createFolderEditText();
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActContext.getContext());
         builder.setCancelable(true);
-        builder.setTitle("Crear grupo");
-        builder.setMessage("Introduce el nombre del grupo");
+        builder.setTitle(getString(R.string.newgroup));
+        builder.setMessage(getString(R.string.entername));
         builder.setView(et_folder);
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Toast.makeText(MainActContext.getContext(), "accion cancelada", Toast.LENGTH_SHORT).show();
+                showToast(R.string.actioncanceled);
                 dialogInterface.cancel();
             }
-        });
-
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 createNewFolder();

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="accept">Accept</string>
+    <string name="newgroup">New group</string>
+    <string name="entername">Enter a name</string>
+    <string name="actioncanceled">Action canceled</string>
+    <string name="permissiongranted">Permission granted</string>
+    <string name="permissionnotgranted">Permission NOT granted</string>
+    <string name="notecreated">Note created</string>
+    <string name="settitle">Set a title</string>
+    <string name="alreadycreated">Already created</string>
+    <string name="cancel">Cancel</string>
+    <string name="replacesetmessage1">\"This element \"</string>
+    <string name="replacesetmessage2">\" already exists. Do you want to replace it?\"</string>
 </resources>
