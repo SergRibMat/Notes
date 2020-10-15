@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void overrideAlertDialog(final String name){
 
-        showToast("El grupo " + name + " ya existe");
+        showToast(getString(R.string.groupalreadyexists1) + name + getString(R.string.groupalreadyexists2));
     }
 
     public void createFolderAlertDialog(View v){

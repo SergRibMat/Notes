@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Toast;
@@ -23,22 +24,23 @@ public class MyLongClickListener implements View.OnLongClickListener {
 
     @Override
     public boolean onLongClick(View v) {
+        final Context context =v.getContext();
         //para quitar txt tambien borrar el if
         final int itemPosition = myRecycleView.getChildLayoutPosition(v);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActContext.getContext());
         builder.setCancelable(true);
-        builder.setTitle("Borrar libro");
-        builder.setMessage("Estas a punto de borrar el elemento " + list.getItemAtPosition(itemPosition).toString());
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setTitle(context.getString(R.string.deleteelement));
+        builder.setMessage(context.getString(R.string.deletequestion) + list.getItemAtPosition(itemPosition).toString());
+        builder.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(MainActContext.getContext(), "borrado cancelado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActContext.getContext(), context.getString(R.string.canceldelete), Toast.LENGTH_SHORT).show();
                 dialogInterface.cancel();
             }
         });
 
-        builder.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(context.getString(R.string.accept), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Section section = list.getItemAtPosition(itemPosition);

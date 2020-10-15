@@ -33,8 +33,6 @@ public class CreateNoteActivity extends AppCompatActivity {
         String text = et_text.getText().toString().trim();
         if(!nullOrEmpty(title) || !nullOrEmpty(text)){
             resetNoteAlertDialog();
-        }else{
-            showToast("Ya esta en blanco");
         }
 
     }
@@ -58,7 +56,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             setResult(RESULT_OK, intent);
             finish();
         }else{
-            showToast("Introduce titulo y texto");
+            showToast(getString(R.string.settextandtitle));
         }
 
 
@@ -83,17 +81,17 @@ public class CreateNoteActivity extends AppCompatActivity {
     private void resetNoteAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        builder.setTitle("Borrado");
-        builder.setMessage("¿Desea borrar todo el contenido de la nota?");
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.deleted));
+        builder.setMessage(getString(R.string.deletenotecontent));
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                showToast("accion cancelada");
+                showToast(getString(R.string.actioncanceled));
                 dialogInterface.cancel();
             }
         });
 
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                resetAction();
