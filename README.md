@@ -1,5 +1,12 @@
 # Notes
 
+First version of an Adnroid app for taking and save notes.
+
+I will keep this version of the project open but i will upgrade it with kotlin and AndroidX and Jetpack and compare
+the before and the after. (i wont show the code of the after but i will post GIFs)
+
+
+
 ![note](https://user-images.githubusercontent.com/54866393/96146312-714ca180-0f06-11eb-9d01-8a196947532b.gif)
 
 
