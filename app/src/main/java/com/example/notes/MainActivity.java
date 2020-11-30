@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private SectionRecicleAdapter adapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private SearchView searchView;
 
     private MainController mainController;
     private SectionList sectionList;
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         MainActContext.setContext(this);
         myFilesHandler = new MyFilesHandler(this);
         sectionList = new SectionList(myFilesHandler.listInstance());
-        //filesMessage(myFilesHandler);
         setUpRecyclerView();
         requestReadWritePermissions();
         adapterDataUpdater = new AdapterDataUpdater(adapter, sectionList);
@@ -53,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.setAdapterDataUpdater(adapterDataUpdater);
 
         et_folder = createFolderEditText();
-
-        //initSearchViewListeners();
     }
 
     private void requestReadWritePermissions() {
@@ -120,15 +116,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    //UI info to know if there are files or not
-    /*private void filesMessage(MyFilesHandler a){
-        if(a.getIsEmptry()){
-            showToast("No hay archivos");
-        }else{
-            showToast("Hay archivos");
-        }
-    }*/
 
     public void createNewFolder(){
 
@@ -241,27 +228,6 @@ public class MainActivity extends AppCompatActivity {
         EditText myEditText = new EditText(this); // Pass it an Activity or Context
         myEditText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)); // Pass two args; must be LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, or an integer pixel value.
         return myEditText;
-    }
-
-    private void initSearchViewListeners(){
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //este metodo se ejecuta cuando se le da a la lupa del techado.
-                showToast("esto es Submit");
-                return false;
-            }
-            /**
-             *el metodo onQueryTextChange se ejecuta cada vez que introduces una letra
-             * tambien se ejecuta cuando le das a la X del buscador para borrar su contenido
-             */
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                showToast("esto es change");
-                return false;
-            }
-        });
     }
 
 }
