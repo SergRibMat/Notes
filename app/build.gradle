@@ -45,5 +45,6 @@ dependencies {
 
     //google material
     implementation "com.google.android.material:material:1.2.1"
+    implementation 'com.karumi:dexter:6.2.1'
 
 }

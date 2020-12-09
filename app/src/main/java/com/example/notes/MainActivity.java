@@ -18,9 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,23 +39,66 @@ public class MainActivity extends AppCompatActivity {
     private MainController mainController;
     private SectionList sectionList;
     private AdapterDataUpdater adapterDataUpdater;
+    private boolean storagePermissionGrantedVariable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        storagePermissionGrantedVariable = storagePermissionGranted();
+        //requestReadWritePermissions();
 
-        requestReadWritePermissions();
+        askPermissionsWithDexter();
 
         setUp();
 
     }
 
+    private void askPermissionsWithDexter(){
+        Dexter.withContext(this)
+                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                        storagePermissionGrantedVariable = storagePermissionGranted();
+                        setUp();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                        showToast("Permission Denied");
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActContext.getContext());
+                        builder.setCancelable(true);
+                        builder.setTitle(getString(R.string.newgroup));
+                        builder.setMessage(getString(R.string.entername));
+                        builder.setView(et_folder);
+                        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                showToast(R.string.actioncanceled);
+                                dialogInterface.cancel();
+                            }
+                        }).setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                        builder.show();
+                    }
+                }).check();
+    }
+
     private void setUp(){
-        if(!storagePermissionGranted()){
+        if(!storagePermissionGrantedVariable){
             return;
         }
-        showToast("He entrado");
         MainActContext.setContext(this);
         myFilesHandler = new MyFilesHandler(this);
         sectionList = new SectionList(myFilesHandler.listInstance());
@@ -63,12 +110,13 @@ public class MainActivity extends AppCompatActivity {
         et_folder = createFolderEditText();
     }
 
-    private void requestReadWritePermissions() {
+    /*private void requestReadWritePermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_STORAGE);
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                            Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_STORAGE);
         }
-    }
+    }*/
 
     private void setUpRecyclerView() {
 
@@ -84,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void buttonNewNote(View view){
-        if(!storagePermissionGranted()){
+        if(!storagePermissionGrantedVariable){
             showToast("Permission not granted");
             return;
         }
@@ -117,22 +165,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //execute setUp first time app is opened
-                setUp();
+                showToast("Permission Granted");
+
             } else {
                 //execute setUpPermission not granted
                 showToast(R.string.permissionnotgranted);
 
             }
         }
-    }
+    }*/
 
     public void createNewFolder(){
-        if(!storagePermissionGranted()){
+        if(!storagePermissionGrantedVariable){
             showToast("Permission not granted");
             return;
         }
@@ -206,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createFolderAlertDialog(View v){
-        if(!storagePermissionGranted()){
+        if(!storagePermissionGrantedVariable){
             showToast("Permission not granted");
             return;
         }
@@ -260,9 +308,13 @@ public class MainActivity extends AppCompatActivity {
     //return -1 if 1 of them not granted or none are granted
     private boolean storagePermissionGranted(){
         int writeExternalStoragePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        //int readExternalStoragePermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
         if (writeExternalStoragePermission == -1){
             return false;
         }
+        /*if(readExternalStoragePermission == -1){
+            return false;
+        }*/
         return true;
     }
 
