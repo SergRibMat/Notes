@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
     private MyFilesHandler myFilesHandler;
     private EditText et_folder;
-
+    private boolean permissionGranted;
 
     private SectionRecicleAdapter adapter;
     private RecyclerView recyclerView;
@@ -41,11 +41,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        requestReadWritePermissions();
+
+
+        setUp();
+
+    }
+
+    private void setUp(){
+        if(!storagePermissionGranted()){
+            return;
+        }
+
         MainActContext.setContext(this);
         myFilesHandler = new MyFilesHandler(this);
         sectionList = new SectionList(myFilesHandler.listInstance());
         setUpRecyclerView();
-        requestReadWritePermissions();
         adapterDataUpdater = new AdapterDataUpdater(adapter, sectionList);
         mainController = new MainController(myFilesHandler, sectionList, adapter, adapterDataUpdater);
         adapter.setAdapterDataUpdater(adapterDataUpdater);
@@ -74,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void buttonNewNote(View view){
+        if(!storagePermissionGranted()){
+            showToast("Permission not granted");
+            return;
+        }
         Intent i = new Intent(this, CreateNoteActivity.class);
         startActivityForResult(i, 2);
     }
@@ -107,18 +122,21 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                showToast(R.string.permissiongranted);
+                //execute setUp first time app is opened
+                setUp();
             } else {
-
+                //execute setUpPermission not granted
                 showToast(R.string.permissionnotgranted);
-                finish();
+
             }
         }
     }
 
     public void createNewFolder(){
-
+        if(!storagePermissionGranted()){
+            showToast("Permission not granted");
+            return;
+        }
         String name = et_folder.getText().toString().trim();
         if (!nullOrEmpty(name)){
             if (myFilesHandler.searchIfNoteAlreadyExists(name)){
@@ -189,6 +207,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createFolderAlertDialog(View v){
+        if(!storagePermissionGranted()){
+            showToast("Permission not granted");
+            return;
+        }
 
         if(et_folder.getParent() != null) {
             ((ViewGroup)et_folder.getParent()).removeView(et_folder); // esto soluciona el problema java.lang.IllegalStateException: The specified child already has a parent. You must call removeView() on the child's parent first.
@@ -229,5 +251,21 @@ public class MainActivity extends AppCompatActivity {
         myEditText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)); // Pass two args; must be LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, or an integer pixel value.
         return myEditText;
     }
+
+    @Override
+    public int checkSelfPermission(String permission) {
+        return super.checkSelfPermission(permission);
+    }
+
+    //return 0 if both granted
+    //return -1 if 1 of them not granted or none are granted
+    private boolean storagePermissionGranted(){
+        int writeExternalStoragePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (writeExternalStoragePermission == -1){
+            return false;
+        }
+        return true;
+    }
+
 
 }

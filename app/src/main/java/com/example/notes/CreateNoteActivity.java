@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import android.Manifest;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,6 +48,10 @@ public class CreateNoteActivity extends AppCompatActivity {
     }
 
     public void buttonSave(View view){
+        if(!storagePermissionGranted()){
+            showToast("Permission Not Granted");
+            return;
+        }
         String title = et_title.getText().toString().trim();
         String text = et_text.getText().toString().trim();
         if(!nullOrEmpty(title) && !nullOrEmpty(text)){
@@ -102,6 +107,21 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private void showToast(String text){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public int checkSelfPermission(String permission) {
+        return super.checkSelfPermission(permission);
+    }
+
+    //return 0 if both granted
+    //return -1 if 1 of them not granted or none are granted
+    private boolean storagePermissionGranted(){
+        int writeExternalStoragePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (writeExternalStoragePermission == -1){
+            return false;
+        }
+        return true;
     }
 
 }
