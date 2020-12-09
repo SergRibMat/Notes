@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -265,5 +266,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case 0://delete action
+                int itemPosition = item.getOrder();
+                String itemTitle = item.getTitle().toString();
+                String sectionName = fromMenuTitleToSectionName(itemTitle);
+                showToast(myFilesHandler.deleteFileOrFolder(sectionName));
+                adapterDataUpdater.removeSingleItem(itemPosition);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
+    public String fromMenuTitleToSectionName(String title){
+        String[] separatedTitle = title.split(" ", 2);
+        return separatedTitle[1];
+    }
 }

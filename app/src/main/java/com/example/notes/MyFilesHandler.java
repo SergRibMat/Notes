@@ -144,12 +144,23 @@ public class MyFilesHandler {
     }
 
     public String deleteFileOrFolder(String fileName){
-        File file = new File(updatedPath + File.separator + fileName);
-        if (deleteDirectory(file)){
-            return "eliminado";
+        File directory = new File(updatedPath + File.separator + fileName);
+        File file = new File(updatedPath + File.separator + fileName + ".txt");
+        if (deleteDirectory(directory)){
+            return "Grupo eliminado";
+        }else if(deleteFile(file)){
+            return "Nota eliminada";
         }else{
             return "no se ha podido eliminar";
         }
+    }
+
+    private boolean deleteFile(File file){
+        if (!file.delete()){
+            return false;
+        }
+
+        return true;
     }
 
     private boolean deleteDirectory(File directoryToBeDeleted) {

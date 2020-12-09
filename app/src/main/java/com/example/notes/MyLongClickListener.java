@@ -2,13 +2,14 @@ package com.example.notes;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.ContextMenu;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyLongClickListener implements View.OnLongClickListener {
+public class MyLongClickListener implements View.OnCreateContextMenuListener {
 
     private AdapterDataUpdater adapterDataUpdater;
     private SectionList list;
@@ -22,7 +23,7 @@ public class MyLongClickListener implements View.OnLongClickListener {
         this.myFilesHandler = myFilesHandler;
     }
 
-    @Override
+
     public boolean onLongClick(View v) {
         final Context context =v.getContext();
         //para quitar txt tambien borrar el if
@@ -57,5 +58,20 @@ public class MyLongClickListener implements View.OnLongClickListener {
         builder.show();
         return true;//el return true es para indicar que no haga nada mas tras acabar esto. Si pone false, perfectamente
         //lanza un onclickevent despues del longonclick
+    }
+
+    private void remane(){
+
+    }
+
+    private void delete(){
+
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+        final int itemPosition = myRecycleView.getChildLayoutPosition(view);
+        contextMenu.add(itemPosition, 0, itemPosition, "Delete " + list.getItemAtPosition(itemPosition).toString());
     }
 }

@@ -31,7 +31,8 @@ public class SectionRecicleAdapter extends RecyclerView.Adapter<SectionViewHolde
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_folder_item,
                 parent, false);
         v.setOnClickListener(new MyRecycleViewItemListener(sectionList, myRecycleView, myFilesHandler, adapterDataUpdater));
-        v.setOnLongClickListener(new MyLongClickListener(adapterDataUpdater, sectionList, myRecycleView, myFilesHandler));
+        //v.setOnLongClickListener(new MyLongClickListener(adapterDataUpdater, sectionList, myRecycleView, myFilesHandler));
+        v.setOnCreateContextMenuListener(new MyLongClickListener(adapterDataUpdater, sectionList, myRecycleView, myFilesHandler));;
         return new SectionViewHolder(v, parent);
     }
 

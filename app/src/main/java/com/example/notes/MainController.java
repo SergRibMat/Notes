@@ -16,7 +16,7 @@ public class MainController {
     }
 
     public void createFolderMethod(Section section){
-        myFilesHandler.createFolder(section.getName());//esto tiiene que ser un boolean de si se ha creado satisfactoriamente
+        myFilesHandler.createFolder(section.getName());
         adapterDataUpdater.insertSingleItem(section);
     }
 }
