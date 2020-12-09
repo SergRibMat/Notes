@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
     private MyFilesHandler myFilesHandler;
     private EditText et_folder;
-    private boolean permissionGranted;
 
     private SectionRecicleAdapter adapter;
     private RecyclerView recyclerView;
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         requestReadWritePermissions();
 
-
         setUp();
 
     }
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         if(!storagePermissionGranted()){
             return;
         }
-
+        showToast("He entrado");
         MainActContext.setContext(this);
         myFilesHandler = new MyFilesHandler(this);
         sectionList = new SectionList(myFilesHandler.listInstance());
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String title = data.getStringExtra("title");
                 String text = data.getStringExtra("text");
-                //aqui cabe el codigo para comprobar si la nota ya existe en la propia carpeta en la que estas
+
                 if (myFilesHandler.searchIfNoteAlreadyExists(title)){
 
                     overrideAlertDialog(title,text);

@@ -43,4 +43,7 @@ dependencies {
     api 'com.google.dagger:dagger-android-support:2.25.2' // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.25.2'
 
+    //google material
+    implementation "com.google.android.material:material:1.2.1"
+
 }
