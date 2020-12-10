@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonNewNote(View view){
         if(!storagePermissionGrantedVariable){
-            showToast("Permission not granted");
+            showToast("Permission Not Granted");
             return;
         }
         Intent i = new Intent(this, CreateNoteActivity.class);
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createNewFolder(){
         if(!storagePermissionGrantedVariable){
-            showToast("Permission not granted");
+            showToast("Permission Not Granted");
             return;
         }
         String name = et_folder.getText().toString().trim();
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createFolderAlertDialog(View v){
         if(!storagePermissionGrantedVariable){
-            showToast("Permission not granted");
+            showToast("Permission Not Granted");
             return;
         }
 
