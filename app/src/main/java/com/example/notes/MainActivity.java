@@ -155,8 +155,16 @@ public class MainActivity extends AppCompatActivity {
                     overrideAlertDialog(title,text);
                     return;
                 }
-                Note note = myFilesHandler.createFile(title, text);
-                adapterDataUpdater.insertSingleItem(note);
+                //here goes the thread
+                //Note note = myFilesHandler.createFile(title, text);
+                //adapterDataUpdater.insertSingleItem(note);
+                AddNoteThread addNoteThread = new AddNoteThread(
+                        title,
+                        text,
+                        myFilesHandler,
+                        adapterDataUpdater
+                );
+                addNoteThread.start();
                 showToast(R.string.notecreated);
             }
 
