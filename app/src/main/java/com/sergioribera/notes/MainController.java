@@ -14,30 +14,25 @@
  * limitations under the License.
  */
 
-package com.example.notes;
+package com.sergioribera.notes;
 
-public class AddNoteThread extends Thread{
+public class MainController {
 
-    private String title;
-    private String text;
     private MyFilesHandler myFilesHandler;
+    private SectionList sectionList;
     private AdapterDataUpdater adapterDataUpdater;
+    private SectionRecicleAdapter adapter;
 
-    public AddNoteThread(
-            String title,
-            String text,
-            MyFilesHandler myFilesHandler,
-            AdapterDataUpdater adapterDataUpdater
-    ){
-        this.title = title;
-        this.text = text;
+    public MainController(MyFilesHandler myFilesHandler, SectionList sectionList,SectionRecicleAdapter adapter, AdapterDataUpdater adapterDataUpdater){
         this.myFilesHandler = myFilesHandler;
+        this.sectionList = sectionList;
+        this.adapter = adapter;
         this.adapterDataUpdater = adapterDataUpdater;
+
     }
 
-    @Override
-    public void run() {
-        Note note = myFilesHandler.createFile(title, text);
-        adapterDataUpdater.insertSingleItem(note);
+    public void createFolderMethod(Section section){
+        myFilesHandler.createFolder(section.getName());
+        adapterDataUpdater.insertSingleItem(section);
     }
 }

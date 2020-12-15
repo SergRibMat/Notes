@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package com.example.notes;
+package com.sergioribera.notes;
 
-public abstract class Section {
+import android.content.Context;
 
-    private String name;
+public class MainActContext{
+    private static Context myContext;
 
-    abstract String getName();
+    public static Context getContext() {
+        return myContext;
+    }
 
-    abstract void setName(String name);
+    public static void setContext(Context mContext) {
+        myContext = mContext;
+    }
 
 }

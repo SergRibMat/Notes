@@ -14,10 +14,20 @@
  * limitations under the License.
  */
 
-package com.example.notes.ui.main
+package com.sergioribera.notes
 
-import androidx.lifecycle.ViewModel
+import org.junit.Test
 
-class MainViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+import org.junit.Assert.*
+
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+class ExampleUnitTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
 }

@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.example.notes;
+package com.sergioribera.notes;
 
-import android.content.Context;
+import org.junit.Test;
 
-public class MainActContext{
-    private static Context myContext;
+import static org.junit.Assert.*;
 
-    public static Context getContext() {
-        return myContext;
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+public class ExampleUnitTest {
+    @Test
+    public void addition_isCorrect() {
+        assertEquals(4, 2 + 2);
     }
-
-    public static void setContext(Context mContext) {
-        myContext = mContext;
-    }
-
 }

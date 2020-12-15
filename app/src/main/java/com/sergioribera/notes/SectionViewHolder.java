@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.notes;
+package com.sergioribera.notes;
 
 import android.view.View;
 import android.view.ViewGroup;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.notes
+package com.sergioribera.notes
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

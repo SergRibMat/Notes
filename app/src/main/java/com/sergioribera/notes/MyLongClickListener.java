@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.notes;
+package com.sergioribera.notes;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.view.ContextMenu;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyLongClickListener implements View.OnCreateContextMenuListener {
