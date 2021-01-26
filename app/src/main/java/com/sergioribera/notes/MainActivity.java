@@ -16,6 +16,7 @@
 
 package com.sergioribera.notes;
 
+import android.util.Log;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -59,11 +60,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         storagePermissionGrantedVariable = storagePermissionGranted();
-        //requestReadWritePermissions();
 
-        askPermissionsWithDexter();
 
-        setUp();
+        if(storagePermissionGrantedVariable){
+            setUp();
+            Log.i("Permission", "Permission granted");
+        }else{
+            askPermissionsWithDexter();
+            Log.i("Permission", "Permission NOT granted");
+        }
 
     }
 
@@ -84,27 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActContext.getContext());
-                        builder.setCancelable(true);
-                        builder.setTitle(getString(R.string.newgroup));
-                        builder.setMessage(getString(R.string.entername));
-                        builder.setView(et_folder);
-                        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                                showToast(R.string.actioncanceled);
-                                dialogInterface.cancel();
-                            }
-                        }).setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        });
-
-                        builder.show();
                     }
+
+
                 }).check();
     }
 
@@ -220,15 +208,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (myFilesHandler.getRootPath().equals(myFilesHandler.getUpdatedPath())){
+        if (storagePermissionGrantedVariable){
+            if (myFilesHandler.getRootPath().equals(myFilesHandler.getUpdatedPath())){
 
-            super.onBackPressed();
+                super.onBackPressed();
+            }else{
+
+                myFilesHandler.removeNameFromUpdatedPath();
+                sectionList.setList(myFilesHandler.listInstance());
+                adapterDataUpdater.updateAdapter();
+            }
         }else{
-
-            myFilesHandler.removeNameFromUpdatedPath();
-            sectionList.setList(myFilesHandler.listInstance());
-            adapterDataUpdater.updateAdapter();
+            super.onBackPressed();
         }
+
 
     }
 
