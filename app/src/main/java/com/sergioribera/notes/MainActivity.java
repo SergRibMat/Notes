@@ -91,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
 
                     }
-
-
                 }).check();
     }
 
