@@ -1,16 +1,41 @@
 # Notes
 
-First version of an Adnroid app for taking and save notes.
 
-I will keep this version of the project open but i will upgrade it with kotlin and AndroidX and Jetpack and compare
-the before and the after. (i wont show the code of the after but i will post GIFs)
+## Table of contents
+* [Summary](#summary)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Illustration](#illustration)
+* [Project status](#project-status)
+
+## Summary
+The objective of this App was to learn Android files handling. The notes and files are saved in the App's file directory.
+	
+## Technologies
+
+Project is created with:
+
+* Java
+* RecyclerView 1.0.0
+* Glide 4.11.0
+* Google Material 1.2.1
+* Java Files
+	
+## Setup
+
+* minSdkVersion 21 (Android 5.0)
+* targetSdkVersion 29 (Android 10.0)
+* compileSdkVersion 29
+
+To run this project, install it in your devide by downloading it from Play Store:
+
+https://play.google.com/store/apps/details?id=com.sergioribera.notes
 
 
+## Illustration
 
-![note](https://user-images.githubusercontent.com/54866393/96146312-714ca180-0f06-11eb-9d01-8a196947532b.gif)
+![clickNextButton](https://user-images.githubusercontent.com/54866393/105999398-ec992400-60ad-11eb-9808-599300a8b590.gif)
 
+## Project status 
 
-![group](https://user-images.githubusercontent.com/54866393/96146321-74479200-0f06-11eb-8e11-cd886e25a291.gif)
-
-
-![delete](https://user-images.githubusercontent.com/54866393/96146333-77428280-0f06-11eb-979f-7382dee6190c.gif)
+Project finished.
