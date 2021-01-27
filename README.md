@@ -18,6 +18,7 @@ Project is created with:
 * Java
 * RecyclerView 1.0.0
 * Glide 4.11.0
+* Dexter Permissions Library
 * Google Material 1.2.1
 * Java Files
 	
