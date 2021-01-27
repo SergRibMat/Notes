@@ -34,7 +34,9 @@ https://play.google.com/store/apps/details?id=com.sergioribera.notes
 
 ## Illustration
 
-![clickNextButton](https://user-images.githubusercontent.com/54866393/105999398-ec992400-60ad-11eb-9808-599300a8b590.gif)
+![createAlbum](https://user-images.githubusercontent.com/54866393/106032782-347d7280-60d1-11eb-9000-00a8b41b7abe.gif)
+
+![CreateNote](https://user-images.githubusercontent.com/54866393/106032783-35160900-60d1-11eb-895f-8f10fcda3d2d.gif)
 
 ## Project status 
 
